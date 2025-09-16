@@ -7,9 +7,7 @@ on:
     # 为避免不必要的运行，你甚至可以限定只有特定路径的文件变更时才触发
     branches:
       - main
-    paths:
-      # 只有当这个 zip 文件本身发生变化时才触发工作流
-      - 'imgui/imgui-rs/imgui-sys/third-party/cimgui/imgui.zip'
+  
 
 # 授予工作流对仓库内容的写权限，以便提交和推送更改
 permissions:
