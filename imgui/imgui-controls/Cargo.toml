@@ -1,0 +1,25 @@
+[package]
+name = "imgui-controls"
+version = "0.2.0"
+edition = "2015"
+authors = ["rmemr"]
+
+[dependencies]
+log = "0.4"
+
+[dependencies.regex]
+version = "1.3"
+default-features = false
+features = ["std"]
+
+[dependencies.imgui-widgets]
+version = "0.1.0"
+path = "../imgui-widgets"
+
+[dependencies.imgui]
+version = "0.0.18"
+path = "../imgui-rs"
+
+[dependencies.imgui-sys]
+version = "0.0.18"
+path = "../imgui-rs/imgui-sys"

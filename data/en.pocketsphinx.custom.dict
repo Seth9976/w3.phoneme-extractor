@@ -1,0 +1,23 @@
+;
+; Custom dictionary to map (lowercased) words to a sequence of phonemes.
+; Intended to help detection of unknown/unsual words (e.g. names) from audio by
+; specifying expected phonemes.
+;
+; File format is two columns where the first column contains the "dicitonary word"
+; and the second column contains the expected phoneme sequence. the columns are
+; separated by an arbitrary number of spaces (as in: the second column starts with
+; the first non-space character after the first column), see examples below.
+;
+; The dictionary word must be provided without blanks. The phoneme sequences has
+; to be provided as sequence of phonemes (from the used phoneme set!) separated by
+; a blank character and may:
+;  - define alternatives for a phoneme by using brackets ( ) and separating
+;    one or more alternatives by |
+;  - define an optional phoneme by placing it between [ ]
+;
+; see below for examples
+;
+regis      R (EH | IY) (G | JH) IH S
+radovid    R AE D (IH | OW) V IH D
+emhyr      AE M HH (IY | EH) R
+orianna    AO R IY AA N AH

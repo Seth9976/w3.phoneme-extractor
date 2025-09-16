@@ -1,0 +1,79 @@
+[package]
+name = "w3phonemetools"
+version = "0.7.1"
+edition = "2015"
+license = "GPL-3.0"
+authors = ["rmemr"]
+
+[dependencies]
+log = "0.4"
+glob = "0.2"
+getopts = "0.2"
+lazy_static = "1.0"
+byteorder = "1.2"
+libc = "0.2"
+glutin = "0.11"
+hound = "3.3"
+lewton = "0.7"
+cpal = "0.15"
+rodio = "0.18"
+fon = "0.6"
+regex = "0.2"
+indexmap = "1.0"
+
+[dependencies.logger]
+version = "0.4"
+path = "logger"
+
+[dependencies.espeak]
+path = "espeak"
+
+[dependencies.pocketsphinx]
+path = "pocketsphinx-rs"
+
+[dependencies.glium]
+version = "0.19"
+default-features = true
+
+[dependencies.imgui]
+version = "0.0.18"
+path = "imgui/imgui-rs"
+
+[dependencies.imgui-glium-renderer]
+version = "0.0.18"
+path = "imgui/imgui-rs/imgui-glium-renderer"
+
+[dependencies.imgui-support]
+path = "imgui/imgui-support"
+
+[dependencies.imgui-widgets]
+path = "imgui/imgui-widgets"
+
+[dependencies.imgui-controls]
+path = "imgui/imgui-controls"
+
+[workspace]
+exclude = ["imgui/imgui-rs"]
+
+[profile.release]
+# crash on opt-level 3
+opt-level = 2
+debug = false
+lto = true
+
+# # Enable a small amount of optimization in debug mode
+# [profile.dev]
+# opt-level = 1
+
+# Enable high optimizations for dependencies but not for our code:
+[profile.dev.package."*"]
+debug = false # no debug symbols for deps
+opt-level = 3
+
+[[bin]]
+name = "w3speech-phoneme-extractor"
+path = "src/bin/w3.phoneme_extractor.rs"
+
+# required for win64:
+# VC++ 2015 redistributable package (vc_redist.x64.exe)
+# https://www.microsoft.com/en-us/download/details.aspx?id=48145

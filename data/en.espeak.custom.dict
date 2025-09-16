@@ -1,0 +1,52 @@
+;
+; Custom search and replace for translations. Intended to tweak pronunciation of
+; unknown words like names.
+;
+; An additional CLEANUP line optionally defines a list of characters that should
+; be replaced by a blank character before translation.
+;
+; All other lines define the dictionary mapping.
+;
+; Format is two columns where the first column contains the "search" and the second
+; column contains the "replacement". the columns are separated by an arbitrary
+; number of spaces (as in: the second column starts with the first non-space character
+; after the first column), see example below.
+;
+; the search string must be provided without blanks but include the modifiers
+;
+; since the replacement string has to be processed as a sequence of phonemes the
+; parser tries to split it into phonemes. but this is ambiguous for multi-character
+; phonemes (e.g. aʊə can be a single phoneme or maybe a tripple a-ʊ-ə) - so the
+; replacement sequence can (and in these cases should) be provided as individual
+; phonemes separated by a hyphen characters.
+;
+; Note: keep in mind most phoneme characters (especially the modifiers !) are
+; NOT ascii character. it's easier to copy paste from the list:
+;
+; supported IPA phonemes:
+;    ɔ ɑ ɒ ɐ i iə u ɛ ɜ ɪ ʊ ʊə ʌ ə æ a eə eɪ aɪ oʊ aʊ əʊ ɔɪ ɝ ɚ ɛr ʊr ɔr ɑr ɪr
+;    aʊr aʊə aɪə p b t d k ɡ tʃ dʒ f v θ ð s z ʃ ʒ h m m̩ n n̩ ŋ ŋ̍ l ɫ ɫ̩ əl r ɹ
+;    ɾ ɾ̃ j w ʔ hw ʍ
+;
+; supported IPA modifiers: ˈ ˌ ː
+;
+; ------------------------------------------------------------------------------
+; Additional cleanup characters. The specified characters are removed in
+; addition to -…*/+\
+;
+;CLEANUP = -…*/+\
+;
+; ------------------------------------------------------------------------------
+; example replacements for some names
+;
+; Bleater variations:
+;blˈiːtə      b-l-ˈiː-t-ə-ɹ
+; or
+;blˈiːtə      blˈiːtəɹ
+;
+; Emhyr variations
+ɪmhə         ɪ-m-h-ə-ɹ
+ɛmhə         ɛ-m-h-ə-ɹ
+;
+; Orianna variations
+;ˈɔːɹiənə     ˈɔːɹiana

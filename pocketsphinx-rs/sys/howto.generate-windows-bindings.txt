@@ -1,0 +1,25 @@
+HOWTO generate bindings 
+------------------------
+- install rust msvc (1 + 2)
+
+- install Visual Studio (3)
+  - include Cmake tools for windows & linux
+  - include CLang compiler
+
+- set clang path, e.g.
+  > SET LIBCLANG_PATH=c:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\Llvm\x64\bin
+
+- install bindgen: 
+  > cargo install bindgen-cli
+
+- install rustfmt: 
+  > rustup component add rustfmt
+
+- compile pocketsphinx in Visual Studio (as x64-release)
+
+- generate bindings (POCKETSPHINX-DIR is Visual Studio pocketsphinx project root dir): 
+  > bindgen wrapper.h -o bindings.rs -- -I<POCKETSPHINX-DIR>\include -I<POCKETSPHINX-DIR>\out\build\x64-Release\include -DPOCKETSPHINX_EXPORT=
+
+(1) https://www.rust-lang.org/tools/install
+(2) https://rust-lang.github.io/rustup/installation/windows-msvc.html
+(3) https://www.visualstudio.com/

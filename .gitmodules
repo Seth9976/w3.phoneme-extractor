@@ -1,0 +1,15 @@
+[submodule "logger"]
+	path = logger
+	url = ../logger
+[submodule "imgui/imgui-rs"]
+	path = imgui/imgui-rs
+	url = ../imgui-rs
+[submodule "imgui/imgui-support"]
+	path = imgui/imgui-support
+	url = ../imgui-support
+[submodule "imgui/imgui-widgets"]
+	path = imgui/imgui-widgets
+	url = ../imgui-widgets
+[submodule "imgui/imgui-controls"]
+	path = imgui/imgui-controls
+	url = ../imgui-controls

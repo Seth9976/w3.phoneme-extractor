@@ -1,0 +1,15 @@
+[package]
+name = "espeak"
+version = "0.0.1"
+edition = "2015"
+license = "GPL-3.0"
+authors = ["rmemr"]
+
+[dependencies]
+libc = "0.2"
+log = "0.4"
+regex = "0.2"
+lazy_static = "1.5"
+
+[dependencies.espeak-sys]
+path = "../espeak-sys"

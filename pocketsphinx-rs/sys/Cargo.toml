@@ -1,0 +1,15 @@
+[package]
+name = "pocketsphinx-sys"
+version = "0.1.0"
+edition = "2021"
+description = "Rust bindings for pocketsphinx"
+license = "MIT"
+repository = "https://github.com/mmende/pocketsphinx-rs"
+authors = ["Martin Mende <mmende123@gmail.com>"]
+
+[dependencies]
+
+[build-dependencies]
+bindgen = "0.63.0"
+cmake = "0.1.49"
+
