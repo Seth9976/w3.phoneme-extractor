@@ -1,0 +1,71 @@
+# .github/workflows/unzip_cimgui.yml
+
+name: Unzip cimgui
+on:
+  push:
+    # 设定触发的分支，例如 main。
+    # 为避免不必要的运行，你甚至可以限定只有特定路径的文件变更时才触发
+    branches:
+      - main
+    paths:
+      # 只有当这个 zip 文件本身发生变化时才触发工作流
+      - 'imgui/imgui-rs/imgui-sys/third-party/cimgui/imgui.zip'
+
+# 授予工作流对仓库内容的写权限，以便提交和推送更改
+permissions:
+  contents: write
+
+jobs:
+  unzip:
+    runs-on: ubuntu-22.04
+    # 判断触发者不是 GitHub Actions 自身，防止无限循环
+    if: github.actor != 'github-actions[bot]'
+
+    steps:
+      - name: 检出代码
+        # 使用 v4 版本的 checkout 动作
+        uses: actions/checkout@v4
+
+      - name: 原地解压 imgui.zip
+        run: |
+          # 定义文件路径和目标目录变量，便于维护
+          # 注意：请确保你的路径中没有隐藏的特殊字符（例如你输入中包含的 U+200E 字符）
+          ZIP_FILE="imgui/imgui-rs/imgui-sys/third-party/cimgui/imgui.zip"
+          TARGET_DIR="imgui/imgui-rs/imgui-sys/third-party/cimgui/"
+
+          # 检查 zip 文件是否存在
+          if [ -f "$ZIP_FILE" ]; then
+            echo "找到 $ZIP_FILE，开始解压..."
+            
+            # 使用 -o 选项强制覆盖现有文件
+            # 使用 -d 选项指定解压到其所在的目录 (TARGET_DIR)
+            unzip -o "$ZIP_FILE" -d "$TARGET_DIR"
+            
+            echo "解压完成，删除 $ZIP_FILE..."
+            # 删除原始的 zip 文件
+            rm "$ZIP_FILE"
+          else
+            echo "错误: $ZIP_FILE 未找到!"
+            exit 1
+          fi
+
+      - name: 提交解压后的文件
+        run: |
+          # 配置 Git 用户信息
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 检查工作目录是否有变动
+          # --quiet 参数使 diff 在有差异时返回 1，无差异时返回 0
+          # '!' 将返回值反转，因此 "if ! git diff..." 表示 "如果有变动"
+          if ! git diff --quiet; then
+            echo "检测到文件变动，正在提交..."
+            # 添加所有变动（包括新解压的文件和被删除的 .zip 文件）
+            git add .
+            # 提交变动，并使用特定的提交信息
+            git commit -m "Chore: 原地解压 cimgui/imgui.zip"
+            # 推送提交到远程仓库
+            git push
+          else
+            echo "没有检测到文件变动。"
+          fi
